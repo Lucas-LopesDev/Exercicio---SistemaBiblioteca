@@ -6,33 +6,28 @@ public class Biblioteca
     public List<Livro>? Livros = new List<Livro>();
     public List<Emprestimo>? Emprestimos = new List<Emprestimo>();
 
-    public void GetEmpretimos()
+    public List<Emprestimo>? GetEmpretimos()
     {
         if (Emprestimos != null)
         {
-            foreach (var x in Emprestimos)
-            {
-                Console.WriteLine($"{x.Livro?.Name} Emprestado para: {x.User?.Name}");
-            }
+            return Emprestimos;
         }
+        return null;
     }
-    public void GetUsers()
+    public List<User>? GetUsers()
     {
-        Users?.ForEach(x => Console.WriteLine($"Id: {x.Id} User:{x.Name}"));
+        if (Users != null)
+        {
+            return Users;
+        }
+        return null;
     }
-    public void GetLivros()
+    public List<Livro>? GetLivros()
     {
         if (Livros != null)
         {
-            var livrosDisponiveis = Livros.Where(livro => livro.Disponivel == true);
-            if (livrosDisponiveis != null)
-            {
-                foreach (var livro in livrosDisponiveis)
-                {
-                    Console.WriteLine(livro.ToString());
-                }
-            }
+            return Livros;
         }
-
+        return null;
     }
 }
