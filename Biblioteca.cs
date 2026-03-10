@@ -58,11 +58,11 @@ public class Biblioteca
         }
         return 0;
     }
-    public int AddUser(string name)
+    public int AddUser(int id, string name)
     {
         if (name != null)
         {
-            var user = new User() { Name = name };
+            var user = new User() { Id = id, Name = name };
             Users?.Add(user);
             return 1;
         }
@@ -102,9 +102,6 @@ public class Biblioteca
     }
     public void AddEmprestimo(int idLivro, int idUser)
     {
-        //verificar se o livro e usuario existem
-        // verificar se o livro está disponivel
-
         if (Livros != null && Users != null)
         {
             var livro = Livros.Find(l => l.Id == idLivro && l.Disponivel == true);
@@ -120,6 +117,7 @@ public class Biblioteca
                 Console.WriteLine("Usuario não encontrado");
                 return;
             }
+
             var emprestimo = new Emprestimo(user, livro);
             Emprestimos?.Add(emprestimo);
             livro.Disponivel = false;
