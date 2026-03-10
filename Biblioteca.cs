@@ -49,6 +49,15 @@ public class Biblioteca
         }
         return 0;
     }
+    public int AddLivro(Livro livro)
+    {
+        if (livro != null && Livros != null)
+        {
+            Livros.Add(livro);
+            return 1;
+        }
+        return 0;
+    }
     public int AddUser(string name)
     {
         if (name != null)
