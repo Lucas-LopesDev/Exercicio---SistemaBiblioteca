@@ -123,4 +123,34 @@ public class Biblioteca
             livro.Disponivel = false;
         }
     }
+    public Livro? ConsultarLivro(int idLivro)
+    {
+        if (Livros != null)
+        {
+            var livro = Livros.Find(l => l.Id == idLivro);
+            if (livro != null)
+            {
+                return livro;
+            }
+            return null;
+        }
+        return null;
+    }
+    public void DevolverLivro(int id_emprestimo)
+    {
+        if (Emprestimos != null)
+        {
+            var emprestimo = Emprestimos.Find(e => e.Id == id_emprestimo);
+            if (emprestimo != null && emprestimo.Livro != null)
+            {
+                emprestimo.Livro.Disponivel = true;
+                Console.WriteLine("Livro devolvido");
+                Emprestimos.Remove(emprestimo);
+                return;
+            }
+            Console.Write("Emprestimo nao encontrado");
+
+        }
+        Console.Write("Nenhum Emprestimo ativo");
+    }
 }

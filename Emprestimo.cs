@@ -2,6 +2,7 @@ namespace SistemaBiblioteca
 {
     public class Emprestimo
     {
+        public int Id { get; set; }
         public User? User { get; set; }
         public Livro? Livro { get; set; }
 
