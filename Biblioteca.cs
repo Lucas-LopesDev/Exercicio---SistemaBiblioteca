@@ -49,11 +49,20 @@ public class Biblioteca
         }
         return 0;
     }
-    public int AddUser(string name)
+    public int AddLivro(Livro livro)
+    {
+        if (livro != null && Livros != null)
+        {
+            Livros.Add(livro);
+            return 1;
+        }
+        return 0;
+    }
+    public int AddUser(int id, string name)
     {
         if (name != null)
         {
-            var user = new User() { Name = name };
+            var user = new User() { Id = id, Name = name };
             Users?.Add(user);
             return 1;
         }
@@ -93,9 +102,6 @@ public class Biblioteca
     }
     public void AddEmprestimo(int idLivro, int idUser)
     {
-        //verificar se o livro e usuario existem
-        // verificar se o livro está disponivel
-
         if (Livros != null && Users != null)
         {
             var livro = Livros.Find(l => l.Id == idLivro && l.Disponivel == true);
@@ -111,9 +117,40 @@ public class Biblioteca
                 Console.WriteLine("Usuario não encontrado");
                 return;
             }
+
             var emprestimo = new Emprestimo(user, livro);
             Emprestimos?.Add(emprestimo);
             livro.Disponivel = false;
         }
+    }
+    public Livro? ConsultarLivro(int idLivro)
+    {
+        if (Livros != null)
+        {
+            var livro = Livros.Find(l => l.Id == idLivro);
+            if (livro != null)
+            {
+                return livro;
+            }
+            return null;
+        }
+        return null;
+    }
+    public void DevolverLivro(int id_emprestimo)
+    {
+        if (Emprestimos != null)
+        {
+            var emprestimo = Emprestimos.Find(e => e.Id == id_emprestimo);
+            if (emprestimo != null && emprestimo.Livro != null)
+            {
+                emprestimo.Livro.Disponivel = true;
+                Console.WriteLine("Livro devolvido");
+                Emprestimos.Remove(emprestimo);
+                return;
+            }
+            Console.Write("Emprestimo nao encontrado");
+
+        }
+        Console.Write("Nenhum Emprestimo ativo");
     }
 }
